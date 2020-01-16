@@ -20,7 +20,7 @@ public class EmailFolderDTO {
     @Id
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private Long folderId;
+    private String folderId;
 
     @NotNull
     @NotBlank
