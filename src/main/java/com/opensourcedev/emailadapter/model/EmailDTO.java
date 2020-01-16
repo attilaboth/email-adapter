@@ -20,7 +20,7 @@ public class EmailDTO {
     @Id
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private Long emailId;
+    private String emailId;
 
     @Email
     @NotNull
