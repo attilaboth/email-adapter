@@ -1,6 +1,7 @@
 package com.opensourcedev.emailadapter.service;
 
 import com.opensourcedev.emailadapter.model.EmailDTO;
+import com.opensourcedev.emailadapter.repository.EmailRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -10,10 +11,10 @@ import java.util.Set;
 public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
 
 
-    private final EmailCrudService emailCrudService;
+    private final EmailRepository emailRepository;
 
-    public EmailCrudServiceImpl(EmailCrudService emailCrudService) {
-        this.emailCrudService = emailCrudService;
+    public EmailCrudServiceImpl(EmailRepository emailRepository) {
+        this.emailRepository = emailRepository;
     }
 
 
@@ -24,23 +25,23 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
     public Set<EmailDTO> findAll() {
         Set<EmailDTO> emails = new HashSet<>();
 
-        emailCrudService.findAll().forEach(emails::add);
+        emailRepository.findAll().forEach(emails::add);
         return emails;
     }
 
     @Override
     public EmailDTO findById(String id) {
 
-        return emailCrudService.findById(id).orElse(null);
+        return emailRepository.findById(id).orElse(null);
     }
 
     @Override
     public EmailDTO save(EmailDTO email) {
-        return emailCrudService.save(email);
+        return emailRepository.save(email);
     }
 
     @Override
     public void deleteById(String id) {
-        emailCrudService.deleteById(id);
+        emailRepository.deleteById(id);
     }
 }

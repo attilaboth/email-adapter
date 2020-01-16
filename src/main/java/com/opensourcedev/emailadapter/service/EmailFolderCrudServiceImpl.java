@@ -1,6 +1,7 @@
 package com.opensourcedev.emailadapter.service;
 
 import com.opensourcedev.emailadapter.model.EmailFolderDTO;
+import com.opensourcedev.emailadapter.repository.EmailFolderRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -9,10 +10,10 @@ import java.util.Set;
 @Service
 public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, String>{
 
-    private EmailFolderCrudService emailFolderCrudService;
+    private EmailFolderRepository emailFolderRepository;
 
-    public EmailFolderCrudServiceImpl(EmailFolderCrudService emailFolderCrudService) {
-        this.emailFolderCrudService = emailFolderCrudService;
+    public EmailFolderCrudServiceImpl(EmailFolderRepository emailFolderRepository) {
+        this.emailFolderRepository = emailFolderRepository;
     }
 
 
@@ -21,23 +22,23 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
     @Override
     public Set<EmailFolderDTO> findAll() {
         Set<EmailFolderDTO> emailFolders = new HashSet<>();
-        emailFolderCrudService.findAll().forEach(emailFolders::add);
+        emailFolderRepository.findAll().forEach(emailFolders::add);
 
         return emailFolders;
     }
 
     @Override
     public EmailFolderDTO findById(String id) {
-        return emailFolderCrudService.findById(id).orElse(null);
+        return emailFolderRepository.findById(id).orElse(null);
     }
 
     @Override
     public EmailFolderDTO save(EmailFolderDTO emailFolder) {
-        return emailFolderCrudService.save(emailFolder);
+        return emailFolderRepository.save(emailFolder);
     }
 
     @Override
     public void deleteById(String id) {
-        emailFolderCrudService.deleteById(id);
+        emailFolderRepository.deleteById(id);
     }
 }
