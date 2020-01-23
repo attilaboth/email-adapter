@@ -1,4 +1,4 @@
-package com.opensourcedev.emailadapter.service;
+package com.opensourcedev.emailadapter.service.crud_service;
 
 
 

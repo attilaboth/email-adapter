@@ -2,6 +2,7 @@ package com.opensourcedev.emailadapter.service;
 
 import com.opensourcedev.emailadapter.model.EmailFolderDTO;
 import com.opensourcedev.emailadapter.repository.EmailFolderRepository;
+import com.opensourcedev.emailadapter.service.crud_service.EmailFolderCrudServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
