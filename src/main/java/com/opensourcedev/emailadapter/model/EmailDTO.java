@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Email;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,10 +47,10 @@ public class EmailDTO {
     private String bodyAsHtml;
 
     @Lob
-    private Byte imageAttachment;
+    private List<Byte> imageAttachment;
 
     @Lob
-    private String textAttachment;
+    private List<String> textAttachment;
 
 
 

@@ -37,7 +37,7 @@ class EmailFolderCrudServiceImplTest {
         testEmailFolder = EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7")
                 .folderName("INBOX")
                 .rootFolder(true)
-                .numberOfSubFolder(5)
+                .numberOfSubFolders(5)
                 .build();
     }
 

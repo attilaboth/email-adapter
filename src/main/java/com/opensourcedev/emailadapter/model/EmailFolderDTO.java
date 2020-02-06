@@ -29,7 +29,7 @@ public class EmailFolderDTO {
 
     @Min(0)
     @PositiveOrZero
-    private Integer numberOfSubFolder;
+    private Integer numberOfSubFolders;
 
 
 }
