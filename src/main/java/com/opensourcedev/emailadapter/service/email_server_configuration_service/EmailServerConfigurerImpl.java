@@ -71,7 +71,7 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
         connectionProps.add(subfolder);
 
         if (connectionProps.contains(null)){
-            System.out.println("NPE PROBLEM");
+            log.debug("[!!] No connection properties were found!!");
             connectionProps.add("");
             return connectionProps;
         }else {

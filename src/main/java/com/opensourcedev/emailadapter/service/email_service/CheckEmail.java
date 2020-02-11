@@ -35,13 +35,14 @@ public class CheckEmail {
 
 
 
-    // TODO in controller URL must contain boolean for this method
+    // TODO in controller URL must contain boolean for subFolder lookup
     public Message[] checkAllMailsInMailbox(boolean subfolderLookup){
 
         try{
 
             store = serverConfigurer.connectToMailbox().getStore(imapProtocol);
             store.connect(host, username, password);
+
             password = serverConfigurer.getConnectionProperties().get(2);
             username = serverConfigurer.getConnectionProperties().get(1);
             host = serverConfigurer.getConnectionProperties().get(0);
@@ -50,16 +51,16 @@ public class CheckEmail {
             emailSubFolder = serverConfigurer.getConnectionProperties().get(5);
 
             if (subfolderLookup){
-                Folder emailFolder = store.getFolder(emailRootFolder);
-                emailFolder.open(Folder.READ_ONLY);
-                messages = emailFolder.getMessages();
-                log.debug("[*] Total messages in folder: " + messages.length);
-                messageLookup(emailFolder);
-            }else{
                 Folder emailFolder = store.getFolder(emailRootFolder).getFolder(emailSubFolder);
                 emailFolder.open(Folder.READ_ONLY);
                 messages = emailFolder.getMessages();
                 log.debug("[*] Total messages in subfolder " + emailSubFolder + ":" + messages.length);
+                messageLookup(emailFolder);
+            }else{
+                Folder emailFolder = store.getFolder(emailRootFolder);
+                emailFolder.open(Folder.READ_ONLY);
+                messages = emailFolder.getMessages();
+                log.debug("[*] Total messages in folder: " + messages.length);
                 messageLookup(emailFolder);
             }
 
