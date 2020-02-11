@@ -2,6 +2,7 @@ package com.opensourcedev.emailadapter.service;
 
 import com.opensourcedev.emailadapter.model.EmailFolderDTO;
 import com.opensourcedev.emailadapter.repository.EmailFolderRepository;
+import com.opensourcedev.emailadapter.service.crud_service.EmailFolderCrudServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +37,7 @@ class EmailFolderCrudServiceImplTest {
         testEmailFolder = EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7")
                 .folderName("INBOX")
                 .rootFolder(true)
-                .numberOfSubFolder(5)
+                .numberOfSubFolders(5)
                 .build();
     }
 
