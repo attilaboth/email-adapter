@@ -40,15 +40,17 @@ public class CheckEmail {
 
         try{
 
-            store = serverConfigurer.connectToMailbox().getStore(imapProtocol);
-            store.connect(host, username, password);
-
             password = serverConfigurer.getConnectionProperties().get(2);
             username = serverConfigurer.getConnectionProperties().get(1);
             host = serverConfigurer.getConnectionProperties().get(0);
             imapProtocol = serverConfigurer.getConnectionProperties().get(3);
             emailRootFolder = serverConfigurer.getConnectionProperties().get(4);
             emailSubFolder = serverConfigurer.getConnectionProperties().get(5);
+
+            store = serverConfigurer.connectToMailbox().getStore(imapProtocol);
+            store.connect(host, username, password);
+
+
 
             if (subfolderLookup){
                 Folder emailFolder = store.getFolder(emailRootFolder).getFolder(emailSubFolder);
