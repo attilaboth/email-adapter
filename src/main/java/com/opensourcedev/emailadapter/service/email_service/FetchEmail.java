@@ -13,6 +13,7 @@ import javax.mail.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Slf4j
 @Service
@@ -51,6 +52,7 @@ public class FetchEmail {
 
                 messages = emailFolder.getMessages();
                 //TODO use repositories to store each mail
+
 
             }else {
 
