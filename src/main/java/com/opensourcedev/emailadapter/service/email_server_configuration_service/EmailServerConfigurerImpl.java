@@ -8,7 +8,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
+import javax.mail.Store;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -50,6 +53,8 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
 
     private final String portAddress = "mail.imap.port";
     private final String ttlsEnable = "mail.imap.starttls.enable";
+    private Store store;
+
 
 
 
@@ -82,7 +87,7 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
     }
 
     @Override
-    public Session connectToMailbox() {
+    public Store connectToMailbox() {
         Properties props = new Properties();
 
         props.put(imapProtocol, imapHost);
@@ -90,11 +95,26 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
         props.put(ttlsEnable, startTTLS);
 
         Session emailSession = Session.getDefaultInstance(props);
+        try {
+            store = emailSession.getStore(imapProtocol);
+            store.connect(imapHost, username, password);
+
+        }catch (NoSuchProviderException e){
+            log.debug("[!!] Error initializing the Store object in \"EmailServerConfigurerImpl class\" ");
+            e.printStackTrace();
+            e.getMessage();
+        }catch (MessagingException e){
+            log.debug("[!!] Error during connection to store...");
+            e.printStackTrace();
+            e.getMessage();
+        }
+
+
 
         log.debug("[*] emailSession created using \"connectToMailbox()\" method call in " +
                 "\"EmailServerConfigurer\" class");
 
-        return emailSession;
+        return store;
     }
 
 

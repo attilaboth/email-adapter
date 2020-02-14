@@ -36,15 +36,11 @@ public class FetchEmail {
     public Message[] fetchMailsInMailbox(boolean subfolderLookup){
 
         try {
-            String password = serverConfigurer.getConnectionProperties().get(2);
-            String username = serverConfigurer.getConnectionProperties().get(1);
-            String host = serverConfigurer.getConnectionProperties().get(0);
-            String imapProtocol = serverConfigurer.getConnectionProperties().get(3);
+
             String emailRootFolder = serverConfigurer.getConnectionProperties().get(4);
             String emailSubFolder = serverConfigurer.getConnectionProperties().get(5);
 
-            store = serverConfigurer.connectToMailbox().getStore(imapProtocol);
-            store.connect(host, username, password);
+            store = serverConfigurer.connectToMailbox();
 
             if (subfolderLookup){
                 Folder emailFolder = store.getFolder(emailRootFolder).getFolder(emailSubFolder);
@@ -58,13 +54,6 @@ public class FetchEmail {
 
             }
 
-
-
-        }catch (NoSuchProviderException e){
-            log.debug("[!!] Error initializing the Store object in \"FetchEmail class\" " +
-                    "calling the \"fetchMailsInMailbox()\"");
-            e.printStackTrace();
-            e.getMessage();
         }catch (MessagingException e){
             log.debug("[!!] Error during connection to store...");
             e.printStackTrace();
