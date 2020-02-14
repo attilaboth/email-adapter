@@ -3,6 +3,7 @@ package com.opensourcedev.emailadapter.service.crud_service;
 import com.opensourcedev.emailadapter.model.EmailFolderDTO;
 import com.opensourcedev.emailadapter.repository.EmailFolderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
 
 
     @Override
+    @Transactional(readOnly = true)
     public Set<EmailFolderDTO> findAll() {
         Set<EmailFolderDTO> emailFolders = new HashSet<>();
         emailFolderRepository.findAll().forEach(emailFolders::add);
@@ -28,6 +30,7 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EmailFolderDTO findById(String id) {
         return emailFolderRepository.findById(id).orElse(null);
     }

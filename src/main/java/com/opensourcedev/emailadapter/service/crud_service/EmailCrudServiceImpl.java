@@ -3,6 +3,7 @@ package com.opensourcedev.emailadapter.service.crud_service;
 import com.opensourcedev.emailadapter.model.EmailDTO;
 import com.opensourcedev.emailadapter.repository.EmailRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
 
 
     @Override
+    @Transactional(readOnly = true)
     public Set<EmailDTO> findAll() {
         Set<EmailDTO> emails = new HashSet<>();
 
@@ -30,6 +32,7 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public EmailDTO findById(String id) {
 
         return emailRepository.findById(id).orElse(null);
