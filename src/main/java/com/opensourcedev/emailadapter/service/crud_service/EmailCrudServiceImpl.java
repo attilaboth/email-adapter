@@ -2,10 +2,14 @@ package com.opensourcedev.emailadapter.service.crud_service;
 
 import com.opensourcedev.emailadapter.model.EmailDTO;
 import com.opensourcedev.emailadapter.repository.EmailRepository;
+import org.hibernate.annotations.NotFound;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -24,8 +28,8 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
 
     @Override
     @Transactional(readOnly = true)
-    public Set<EmailDTO> findAll() {
-        Set<EmailDTO> emails = new HashSet<>();
+    public Set<Optional<EmailDTO>> findAll() {
+        Set<Optional<EmailDTO>> emails = new HashSet<>();
 
         emailRepository.findAll().forEach(emails::add);
         return emails;
@@ -33,14 +37,14 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
 
     @Override
     @Transactional(readOnly = true)
-    public EmailDTO findById(String id) {
-
-        return emailRepository.findById(id).orElse(null);
+    public Optional<EmailDTO> findById(String id) {
+        return emailRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public EmailDTO save(EmailDTO email) {
-        return emailRepository.save(email);
+    public Optional<EmailDTO> save(EmailDTO email) {
+        emailRepository.save(Optional.of(email)).orElseThrow(PersistenceException::new);
+        return Optional.of(email);
     }
 
     @Override

@@ -5,7 +5,10 @@ import com.opensourcedev.emailadapter.repository.EmailFolderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,8 +25,8 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
 
     @Override
     @Transactional(readOnly = true)
-    public Set<EmailFolderDTO> findAll() {
-        Set<EmailFolderDTO> emailFolders = new HashSet<>();
+    public Set<Optional<EmailFolderDTO>> findAll() {
+        Set<Optional<EmailFolderDTO>> emailFolders = new HashSet<>();
         emailFolderRepository.findAll().forEach(emailFolders::add);
 
         return emailFolders;
@@ -31,13 +34,14 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
 
     @Override
     @Transactional(readOnly = true)
-    public EmailFolderDTO findById(String id) {
-        return emailFolderRepository.findById(id).orElse(null);
+    public Optional<EmailFolderDTO> findById(String id) {
+        return emailFolderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
-    public EmailFolderDTO save(EmailFolderDTO emailFolder) {
-        return emailFolderRepository.save(emailFolder);
+    public Optional<EmailFolderDTO> save(EmailFolderDTO emailFolder) {
+        emailFolderRepository.save(Optional.of(emailFolder)).orElseThrow(PersistenceException::new);
+        return Optional.of(emailFolder);
     }
 
     @Override

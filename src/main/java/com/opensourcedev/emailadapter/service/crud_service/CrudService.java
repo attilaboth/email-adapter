@@ -2,16 +2,17 @@ package com.opensourcedev.emailadapter.service.crud_service;
 
 
 
+import java.util.Optional;
 import java.util.Set;
 
 
 public interface CrudService<T, ID>{
 
-    Set<T> findAll();
+    Set<Optional<T>> findAll();
 
-    T findById(ID id);
+    Optional<T> findById(ID id);
 
-    T save(T object);
+    Optional<T> save(T object);
 
     void deleteById(ID id);
 
