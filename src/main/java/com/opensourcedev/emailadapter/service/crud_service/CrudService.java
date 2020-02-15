@@ -8,11 +8,11 @@ import java.util.Set;
 
 public interface CrudService<T, ID>{
 
-    Set<Optional<T>> findAll();
+    Set<T> findAll();
 
-    Optional<T> findById(ID id);
+   T findById(ID id);
 
-    Optional<T> save(T object);
+    T save(T object);
 
     void deleteById(ID id);
 

@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
+public class EmailCrudServiceImpl implements CrudService<Optional<EmailDTO>, String>{
 
 
     private final EmailRepository emailRepository;
@@ -24,14 +24,12 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
 
 
 
-
-
     @Override
     @Transactional(readOnly = true)
     public Set<Optional<EmailDTO>> findAll() {
         Set<Optional<EmailDTO>> emails = new HashSet<>();
-
         emailRepository.findAll().forEach(emails::add);
+
         return emails;
     }
 
@@ -42,13 +40,14 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
     }
 
     @Override
-    public Optional<EmailDTO> save(EmailDTO email) {
-        emailRepository.save(Optional.of(email)).orElseThrow(PersistenceException::new);
-        return Optional.of(email);
+    public Optional<EmailDTO> save(Optional<EmailDTO> email) {
+        emailRepository.save(email).orElseThrow(PersistenceException::new);
+        return email;
     }
 
     @Override
     public void deleteById(String id) {
         emailRepository.deleteById(id);
     }
+
 }

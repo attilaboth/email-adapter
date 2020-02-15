@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, String>{
+public class EmailFolderCrudServiceImpl implements CrudService<Optional<EmailFolderDTO>, String>{
 
     private EmailFolderRepository emailFolderRepository;
 
@@ -39,13 +39,15 @@ public class EmailFolderCrudServiceImpl implements CrudService<EmailFolderDTO, S
     }
 
     @Override
-    public Optional<EmailFolderDTO> save(EmailFolderDTO emailFolder) {
-        emailFolderRepository.save(Optional.of(emailFolder)).orElseThrow(PersistenceException::new);
-        return Optional.of(emailFolder);
-    }
+    public Optional<EmailFolderDTO> save(Optional<EmailFolderDTO> emailFolder) {
+        emailFolderRepository.save(emailFolder).orElseThrow(PersistenceException::new);
+        return emailFolder;    }
 
     @Override
     public void deleteById(String id) {
         emailFolderRepository.deleteById(id);
     }
+
+
+
 }

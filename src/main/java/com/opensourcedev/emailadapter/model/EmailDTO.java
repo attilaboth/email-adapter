@@ -24,22 +24,19 @@ public class EmailDTO {
     @Column(name = "email_id")
     private String emailId;
 
-    @Email
-    @NotNull
-    @NotBlank
-    @Column(name = "email_address")
-    private String emailAddress;
 
     @NotNull
     @NotBlank
     @Column(name = "subject")
     private String subject;
 
+    @Email
     @NotNull
     @NotBlank
     @Column(name = "sender")
     private String sender;
 
+    @Email
     @NotNull
     @NotBlank
     @Column(name = "recipient")
@@ -50,16 +47,12 @@ public class EmailDTO {
     private String bodyAsString;
 
     @Lob
-    @Column(name = "body_as_html")
-    private String bodyAsHtml;
-
-    @Lob
     @Column(name = "image_attachment")
-    private List<Byte> imageAttachment;
+    private byte[] imageAttachment;
 
     @Lob
     @Column(name = "text_attachment")
-    private List<String> textAttachment;
+    private byte[] textAttachment;
 
 
 

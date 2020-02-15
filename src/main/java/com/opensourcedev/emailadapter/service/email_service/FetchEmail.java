@@ -1,5 +1,6 @@
 package com.opensourcedev.emailadapter.service.email_service;
 
+import com.opensourcedev.emailadapter.model.EmailDTO;
 import com.opensourcedev.emailadapter.service.crud_service.CrudService;
 import com.opensourcedev.emailadapter.service.email_server_configuration_service.EmailServerConfigurer;
 import lombok.*;
@@ -7,8 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import java.io.IOException;
 
 @Getter
 @Setter
@@ -33,8 +38,8 @@ public class FetchEmail {
     }
 
 
-    public Message[] fetchMailsInMailbox(boolean subfolderLookup){
-
+    public void fetchMailsInMailbox(boolean subfolderLookup){
+        int emailNumber = 1;
         try {
 
             String emailRootFolder = serverConfigurer.getConnectionProperties().get(4);
@@ -47,8 +52,21 @@ public class FetchEmail {
                 emailFolder.open(Folder.READ_ONLY);
 
                 messages = emailFolder.getMessages();
-                //TODO use repositories to store each mail
+                for(Message message : messages){
+                    EmailDTO email = new EmailDTO();
+                    email.setSubject(message.getSubject());
+                    email.setSender(InternetAddress.toString(message.getFrom())); //need to decompose Address object to be displayed properly
+                    email.setRecipient(InternetAddress.toString(message.getAllRecipients()));
+                    email.setBodyAsString(storeStringContent(message));
+                    email.setImageAttachment(storeContent(message));
+                    email.setTextAttachment(storeContent(message));
 
+                    crudService.save(email);
+
+                    log.debug("[*] Saving email to DB..." );
+                    log.debug("[*] Saved email: " + emailNumber + " contains: " + email.toString());
+                    emailNumber += 1;
+                }
 
             }else {
 
@@ -71,9 +89,51 @@ public class FetchEmail {
             }
         }
 
-
-
-        return messages;
     }
+
+    private byte[] storeContent(Part part){
+        try {
+            if (part.isMimeType("multipart/*")){
+                MultipartFile mp = (MultipartFile) part.getContent();
+                    log.debug("[*] Content type: " + part.getContentType());
+                    byte multipart[] = mp.getBytes();
+                    return multipart;
+            }else if(part.isMimeType("image/jpeg")){
+                MultipartFile mp = (MultipartFile) part.getContent();
+                log.debug("[*] Content type: " + part.getContentType());
+                byte imageBytes[] = mp.getBytes();
+                return imageBytes;
+            }
+
+        }catch (MessagingException e){
+            log.debug("[!!] Error checking mime type...");
+            e.getMessage();
+            e.printStackTrace();
+        }catch (IOException e){
+            log.debug("[!!] Error getting body and content from email...");
+            e.printStackTrace();
+            e.getMessage();
+        }
+        return null;
+    }
+
+    private String storeStringContent(Part part){
+        try {
+            if (part.isMimeType("text/plain")){
+                log.debug("[*] Content type: " + part.getContentType());
+                return part.getContent().toString();
+            }
+        }catch (MessagingException e){
+            log.debug("[!!] Error checking mime type...");
+            e.getMessage();
+            e.printStackTrace();
+        }catch (IOException e){
+            log.debug("[!!] Error getting body and content from email...");
+            e.printStackTrace();
+            e.getMessage();
+        }
+        return null;
+    }
+
 
 }
