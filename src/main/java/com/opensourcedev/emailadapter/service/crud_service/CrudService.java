@@ -2,7 +2,6 @@ package com.opensourcedev.emailadapter.service.crud_service;
 
 
 
-import java.util.Optional;
 import java.util.Set;
 
 

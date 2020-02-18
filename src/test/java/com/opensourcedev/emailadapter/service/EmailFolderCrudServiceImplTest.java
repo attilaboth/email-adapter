@@ -29,16 +29,16 @@ class EmailFolderCrudServiceImplTest {
     @InjectMocks
     EmailFolderCrudServiceImpl emailFolderCrudServiceImpl;
 
-    private Optional<EmailFolderDTO> testEmailFolder;
+    private EmailFolderDTO testEmailFolder;
 
 
     @BeforeEach
     void setUp() {
-        testEmailFolder = Optional.of(EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7")
+        testEmailFolder = EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7")
                 .folderName("INBOX")
                 .rootFolder(true)
                 .numberOfSubFolders(5)
-                .build());
+                .build();
     }
 
 
@@ -46,11 +46,11 @@ class EmailFolderCrudServiceImplTest {
 
     @Test
     void findAll() {
-        Set<Optional<EmailFolderDTO>> emailFolders = new HashSet<>();
-        Set<Optional<EmailFolderDTO>> mailFolders;
+        Set<EmailFolderDTO> emailFolders = new HashSet<>();
+        Set<EmailFolderDTO> mailFolders;
 
-        emailFolders.add(Optional.of(EmailFolderDTO.builder().folderId("3d7df87e-8325-46f9-87cd-5a91460f8a26").build()));
-        emailFolders.add(Optional.of(EmailFolderDTO.builder().folderId("ab758c42-d86b-49d2-9ca3-8e0f6a651921").build()));
+        emailFolders.add(EmailFolderDTO.builder().folderId("3d7df87e-8325-46f9-87cd-5a91460f8a26").build());
+        emailFolders.add(EmailFolderDTO.builder().folderId("ab758c42-d86b-49d2-9ca3-8e0f6a651921").build());
 
         when(emailFolderRepository.findAll()).thenReturn(emailFolders);
 
@@ -64,7 +64,7 @@ class EmailFolderCrudServiceImplTest {
     @Test
     void findById() {
         when(emailFolderRepository.findById(anyString())).thenReturn(Optional.of(testEmailFolder));
-        Optional<EmailFolderDTO> emailFolderDTO = emailFolderCrudServiceImpl.findById("def651ee-cdc0-403e-b052-1737c268dbf7");
+        EmailFolderDTO emailFolderDTO = emailFolderCrudServiceImpl.findById("def651ee-cdc0-403e-b052-1737c268dbf7");
 
         assertNotNull(emailFolderDTO);
     }
@@ -72,17 +72,17 @@ class EmailFolderCrudServiceImplTest {
     @Test
     void findByIdNotFound(){
         when(emailFolderRepository.findById(anyString())).thenReturn(Optional.empty());
-        Optional<EmailFolderDTO> emailFolderDTO = emailFolderCrudServiceImpl.findById("def651ee-cdc0-403e-b052-1737c268dbf7");
+        EmailFolderDTO emailFolderDTO = emailFolderCrudServiceImpl.findById("def651ee-cdc0-403e-b052-1737c268dbf7");
 
         assertNull(emailFolderDTO);
     }
 
     @Test
     void save() {
-        Optional<EmailFolderDTO> folderToSave = Optional.of(EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7").build());
+        EmailFolderDTO folderToSave = EmailFolderDTO.builder().folderId("def651ee-cdc0-403e-b052-1737c268dbf7").build();
         when(emailFolderRepository.save(any())).thenReturn(folderToSave);
 
-        Optional<EmailFolderDTO> savedEmailFolder = emailFolderCrudServiceImpl.save(folderToSave);
+        EmailFolderDTO savedEmailFolder = emailFolderCrudServiceImpl.save(folderToSave);
         assertNotNull(savedEmailFolder);
         verify(emailFolderRepository).save(any());
     }

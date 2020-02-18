@@ -52,24 +52,14 @@ public class FetchEmail {
                 emailFolder.open(Folder.READ_ONLY);
 
                 messages = emailFolder.getMessages();
-                for(Message message : messages){
-                    EmailDTO email = new EmailDTO();
-                    email.setSubject(message.getSubject());
-                    email.setSender(InternetAddress.toString(message.getFrom())); //need to decompose Address object to be displayed properly
-                    email.setRecipient(InternetAddress.toString(message.getAllRecipients()));
-                    email.setBodyAsString(storeStringContent(message));
-                    email.setImageAttachment(storeContent(message));
-                    email.setTextAttachment(storeContent(message));
-
-                    crudService.save(email);
-
-                    log.debug("[*] Saving email to DB..." );
-                    log.debug("[*] Saved email: " + emailNumber + " contains: " + email.toString());
-                    emailNumber += 1;
-                }
+                storeEmailContent(emailNumber);
 
             }else {
+                Folder emailFolder = store.getFolder(emailRootFolder);
+                emailFolder.open(Folder.READ_ONLY);
 
+                messages = emailFolder.getMessages();
+                storeEmailContent(emailNumber);
             }
 
         }catch (MessagingException e){
@@ -89,6 +79,24 @@ public class FetchEmail {
             }
         }
 
+    }
+
+    private void storeEmailContent(int emailNumber) throws MessagingException {
+        for(Message message : messages){
+            EmailDTO email = new EmailDTO();
+            email.setSubject(message.getSubject());
+            email.setSender(InternetAddress.toString(message.getFrom())); //need to decompose Address object to be displayed properly
+            email.setRecipient(InternetAddress.toString(message.getAllRecipients()));
+            email.setBodyAsString(storeStringContent(message));
+            email.setImageAttachment(storeContent(message));
+            email.setTextAttachment(storeContent(message));
+
+            crudService.save(email);
+
+            log.debug("[*] Saving email to DB..." );
+            log.debug("[*] Saved email: " + emailNumber + " contains: " + email.toString());
+            emailNumber += 1;
+        }
     }
 
     private byte[] storeContent(Part part){
