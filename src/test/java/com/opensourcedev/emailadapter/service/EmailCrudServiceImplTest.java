@@ -39,7 +39,6 @@ class EmailCrudServiceImplTest {
     @BeforeEach
     void setUp() {
         testEmail = EmailDTO.builder().emailId("cab35c05-681f-44dc-a34d-1b3335873c5a")
-                .emailAddress("example@gmail.com")
                 .subject("testSubject")
                 .sender("Rashid")
                 .recipient("Kumar")

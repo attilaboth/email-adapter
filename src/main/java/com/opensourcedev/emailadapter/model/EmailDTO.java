@@ -21,36 +21,38 @@ public class EmailDTO {
     @Id
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "email_id")
     private String emailId;
+
+
+    @NotNull
+    @NotBlank
+    @Column(name = "subject")
+    private String subject;
 
     @Email
     @NotNull
     @NotBlank
-    private String emailAddress;
-
-    @NotNull
-    @NotBlank
-    private String subject;
-
-    @NotNull
-    @NotBlank
+    @Column(name = "sender")
     private String sender;
 
+    @Email
     @NotNull
     @NotBlank
+    @Column(name = "recipient")
     private String recipient;
 
     @Lob
+    @Column(name = "body_as_string")
     private String bodyAsString;
 
     @Lob
-    private String bodyAsHtml;
+    @Column(name = "image_attachment")
+    private byte[] imageAttachment;
 
     @Lob
-    private List<Byte> imageAttachment;
-
-    @Lob
-    private List<String> textAttachment;
+    @Column(name = "text_attachment")
+    private byte[] textAttachment;
 
 
 

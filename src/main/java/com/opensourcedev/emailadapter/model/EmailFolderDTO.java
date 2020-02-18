@@ -3,10 +3,7 @@ package com.opensourcedev.emailadapter.model;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Getter
@@ -20,15 +17,20 @@ public class EmailFolderDTO {
     @Id
     @GeneratedValue(generator = "UUIDGenerator")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "folder_id")
     private String folderId;
 
     @NotNull
     @NotBlank
+    @Column(name = "folder_name")
     private String folderName;
+
+    @Column(name = "root_folder")
     private Boolean rootFolder;
 
     @Min(0)
     @PositiveOrZero
+    @Column(name = "number_of_sub_folders")
     private Integer numberOfSubFolders;
 
 

@@ -85,7 +85,7 @@ class EmailServerConfigurerImplTest {
 
         Session emailSession = Session.getDefaultInstance(props);
 
-        when(emailServerConfigurerImpl.connectToMailbox()).thenReturn(emailSession);
+       //when(emailServerConfigurerImpl.connectToMailbox()).thenReturn(emailSession);
 
         assertNotNull(props);
     }

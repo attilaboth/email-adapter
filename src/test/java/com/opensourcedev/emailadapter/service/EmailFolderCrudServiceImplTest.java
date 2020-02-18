@@ -29,7 +29,7 @@ class EmailFolderCrudServiceImplTest {
     @InjectMocks
     EmailFolderCrudServiceImpl emailFolderCrudServiceImpl;
 
-    EmailFolderDTO testEmailFolder;
+    private EmailFolderDTO testEmailFolder;
 
 
     @BeforeEach

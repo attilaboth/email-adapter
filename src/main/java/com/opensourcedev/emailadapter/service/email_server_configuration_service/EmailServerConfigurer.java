@@ -2,12 +2,12 @@ package com.opensourcedev.emailadapter.service.email_server_configuration_servic
 
 
 
-import javax.mail.Session;
+import javax.mail.Store;
 import java.util.List;
 
 
 public interface EmailServerConfigurer {
 
-    Session connectToMailbox();
+    Store connectToMailbox();
     List<String> getConnectionProperties();
 }
