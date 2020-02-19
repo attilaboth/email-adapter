@@ -35,7 +35,6 @@ public class CheckEmail {
 
 
 
-    // TODO in controller URL must contain boolean for subFolder lookup
     public Message[] checkAllMailsInMailbox(boolean subfolderLookup){
 
         try{
