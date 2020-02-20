@@ -38,7 +38,7 @@ public class EmailCrudServiceImpl implements CrudService<EmailDTO, String>{
     @Override
     @Transactional(readOnly = true)
     public EmailDTO findById(String id) {
-
+       //TODO implement reasonable exception that will be thrown
        return emailRepository.findById(id).orElseThrow();
     }
 

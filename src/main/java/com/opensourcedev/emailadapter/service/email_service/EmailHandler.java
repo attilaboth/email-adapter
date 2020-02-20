@@ -9,6 +9,9 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -20,7 +23,9 @@ public class EmailHandler {
     private EmailDTO emailDTO;
     private EmailRepository emailRepository;
 
+
     @Autowired
+    @SuppressWarnings("all")
     public EmailHandler(CheckEmail checkEmail, FetchEmail fetchEmail, EmailDTO emailDTO, EmailRepository emailRepository) {
         this.checkEmail = checkEmail;
         this.fetchEmail = fetchEmail;
@@ -43,4 +48,34 @@ public class EmailHandler {
         log.debug("[*] storeEmailToDB() method has been called...");
         emailRepository.save(email);
     }
+
+    public Set<EmailDTO> findAllEmails(){
+        log.debug("[*] findAllEmails() method has been called...");
+        Set<EmailDTO> emails = new HashSet<>();
+        emailRepository.findAll().forEach(emails::add);
+        return emails;
+    }
+
+    public EmailDTO findEmailById(String id){
+        log.debug("[*] findEmailById() method has been called from EmailHandler ...");
+        if(emailRepository.findById(id).isPresent()){
+            return emailRepository.findById(id).get();
+        }else {
+            try {
+                 throw new Exception("[!!] emailRepository.findById(id).get() returned Null...");
+            }catch (Exception e){
+                log.debug("[!!] Error throwing exception in findEmailById()...");
+                e.getMessage();
+                e.printStackTrace();
+                return new EmailDTO();
+            }
+        }
+    }
+
+    public void deleteById(String id){
+        log.debug("[*] deleteById() method has been called from EmailHandler" +
+                " with id: " + id);
+        emailRepository.deleteById(id);
+    }
+
 }
