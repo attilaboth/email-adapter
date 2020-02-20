@@ -14,7 +14,6 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Component
 @Entity
 @Table(name = "Email")
 public class EmailDTO {

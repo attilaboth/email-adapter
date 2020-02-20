@@ -20,8 +20,6 @@ public class EmailHandler {
     private EmailDTO emailDTO;
     private EmailRepository emailRepository;
 
-
-
     @Autowired
     public EmailHandler(CheckEmail checkEmail, FetchEmail fetchEmail, EmailDTO emailDTO, EmailRepository emailRepository) {
         this.checkEmail = checkEmail;

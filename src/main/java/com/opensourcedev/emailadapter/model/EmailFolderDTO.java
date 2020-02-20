@@ -13,7 +13,6 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Component
 @Entity
 @Table(name = "EmailFolder")
 public class EmailFolderDTO {
