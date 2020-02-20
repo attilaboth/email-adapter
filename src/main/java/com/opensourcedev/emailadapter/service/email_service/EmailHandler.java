@@ -43,7 +43,7 @@ public class EmailHandler {
         log.debug("[*] fetchEmails() method has been called with \"folderLookup\" parameter set to: " + folderLookup);
         fetchEmail.fetchMailsInMailbox(folderLookup);
     }
-    
+
     public void storeEmailToDB(EmailDTO email){
         log.debug("[*] storeEmailToDB() method has been called...");
         emailRepository.save(email);
