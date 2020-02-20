@@ -25,16 +25,15 @@ import java.io.IOException;
 public class FetchEmail {
 
     private EmailServerConfigurer serverConfigurer;
-    @Autowired
-    @Qualifier("emailCrudServiceImpl")
     private CrudService crudService;
 
     private Store store;
     private Message[] messages;
 
     @Autowired
-    public FetchEmail(EmailServerConfigurer serverConfigurer) {
+    public FetchEmail(EmailServerConfigurer serverConfigurer, @Qualifier("emailCrudServiceImpl") CrudService crudService) {
         this.serverConfigurer = serverConfigurer;
+        this.crudService = crudService;
     }
 
 
@@ -81,7 +80,8 @@ public class FetchEmail {
 
     }
 
-    private void storeEmailContent(int emailNumber) throws MessagingException {
+    @Transactional
+    public void storeEmailContent(int emailNumber) throws MessagingException {
         for(Message message : messages){
             EmailDTO email = new EmailDTO();
             email.setSubject(message.getSubject());

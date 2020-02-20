@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.Message;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -43,7 +43,7 @@ public class EmailHandler {
         log.debug("[*] fetchEmails() method has been called with \"folderLookup\" parameter set to: " + folderLookup);
         fetchEmail.fetchMailsInMailbox(folderLookup);
     }
-
+    
     public void storeEmailToDB(EmailDTO email){
         log.debug("[*] storeEmailToDB() method has been called...");
         emailRepository.save(email);
