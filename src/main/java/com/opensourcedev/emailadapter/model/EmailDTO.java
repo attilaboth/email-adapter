@@ -2,12 +2,12 @@ package com.opensourcedev.emailadapter.model;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Getter
 @Setter

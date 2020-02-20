@@ -2,13 +2,16 @@ package com.opensourcedev.emailadapter.model;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "EmailFolder")
