@@ -1,13 +1,13 @@
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\model\EmailDTO.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\crud_service\EmailCrudServiceImpl.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_service\FetchEmail.java
-C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_server_configuration_service\MailServerConnection.java
+C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\controller\EmailController.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\EmailAdapterApplication.java
-C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\crud_service\EmailFolderCrudServiceImpl.java
-C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\model\EmailFolderDTO.java
+C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\date_time_utilities\DateTimeUtils.java
+C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\date_time_utilities\DateTimeConverter.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\repository\EmailRepository.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_service\CheckEmail.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\crud_service\CrudService.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_server_configuration_service\EmailServerConfigurer.java
-C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\repository\EmailFolderRepository.java
+C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_server_configuration_service\EmailServerConfigurerImpl.java
 C:\Users\sajmo\OneDrive\Dokumenty\Git Repositories\email-adapter\src\main\java\com\opensourcedev\emailadapter\service\email_service\EmailHandler.java

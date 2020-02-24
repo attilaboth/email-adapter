@@ -24,7 +24,6 @@ public class EmailHandler {
 
 
     @Autowired
-    @SuppressWarnings("all")
     public EmailHandler(CheckEmail checkEmail, FetchEmail fetchEmail, EmailDTO emailDTO, EmailRepository emailRepository) {
         this.checkEmail = checkEmail;
         this.fetchEmail = fetchEmail;

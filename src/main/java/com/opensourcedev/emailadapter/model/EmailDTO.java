@@ -16,11 +16,12 @@ import javax.validation.constraints.Email;
 @Builder
 @Entity
 @Table(name = "Email")
+@Component
 public class EmailDTO {
 
     @Id
-    @GeneratedValue(generator = "UUIDGenerator")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "email_id")
     private String emailId;
 
