@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -50,7 +49,6 @@ public class FetchEmail {
             if (subfolderLookup){
                 Folder emailFolder = store.getFolder(emailRootFolder).getFolder(emailSubFolder);
                 emailFolder.open(Folder.READ_ONLY);
-
                 messages = emailFolder.getMessages();
                 storeEmailContent(emailNumber);
 

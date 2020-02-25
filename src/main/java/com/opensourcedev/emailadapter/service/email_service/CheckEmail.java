@@ -25,8 +25,7 @@ public class CheckEmail {
     private String username = "";
     private String host = "";
     private String imapProtocol = "";
-    private String emailRootFolder = "";
-    private String emailSubFolder = "";
+
 
     @Autowired
     public CheckEmail(EmailServerConfigurer serverConfigurer) {
@@ -39,8 +38,8 @@ public class CheckEmail {
 
         try{
 
-            emailRootFolder = serverConfigurer.getConnectionProperties().get(4);
-            emailSubFolder = serverConfigurer.getConnectionProperties().get(5);
+            String emailRootFolder = serverConfigurer.getConnectionProperties().get(4);
+            String emailSubFolder = serverConfigurer.getConnectionProperties().get(5);
 
             store = serverConfigurer.connectToMailbox();
 
@@ -124,7 +123,6 @@ public class CheckEmail {
                 ", username='" + username + '\'' +
                 ", host='" + host + '\'' +
                 ", imapProtocol='" + imapProtocol + '\'' +
-                ", emailRootFolder='" + emailRootFolder + '\'' +
                 '}';
     }
 }
