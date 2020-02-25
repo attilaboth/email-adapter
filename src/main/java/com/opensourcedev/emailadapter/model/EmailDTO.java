@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -31,13 +30,11 @@ public class EmailDTO {
     @Column(name = "subject")
     private String subject;
 
-    @Email
     @NotNull
     @NotBlank
     @Column(name = "sender")
     private String sender;
 
-    @Email
     @NotNull
     @NotBlank
     @Column(name = "recipient")

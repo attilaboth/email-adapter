@@ -55,7 +55,7 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
     private final String ttlsEnable = "mail.imap.starttls.enable";
     private Store store;
 
-
+    private final String storeProtocolProperty = "mail.store.protocol";
 
 
     @Bean
@@ -90,9 +90,7 @@ public class EmailServerConfigurerImpl implements EmailServerConfigurer {
     public Store connectToMailbox() {
         Properties props = new Properties();
 
-        props.put(imapProtocol, imapHost);
-        props.put(portAddress, imapPort);
-        props.put(ttlsEnable, startTTLS);
+        props.put(storeProtocolProperty, imapProtocol);
 
         Session emailSession = Session.getDefaultInstance(props);
         try {

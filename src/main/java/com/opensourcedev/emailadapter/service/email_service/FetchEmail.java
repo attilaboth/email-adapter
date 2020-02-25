@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @Getter
@@ -102,14 +103,18 @@ public class FetchEmail {
     private byte[] storeContent(Part part){
         try {
             if (part.isMimeType("multipart/*")){
-                MultipartFile mp = (MultipartFile) part.getContent();
-                    log.debug("[*] Content type: " + part.getContentType());
-                    byte multipart[] = mp.getBytes();
-                    return multipart;
-            }else if(part.isMimeType("image/jpeg")){
-                MultipartFile mp = (MultipartFile) part.getContent();
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                Multipart mp = (Multipart) part.getContent();
+                mp.writeTo(buffer);
+                byte[] multipart = buffer.toByteArray();
                 log.debug("[*] Content type: " + part.getContentType());
-                byte imageBytes[] = mp.getBytes();
+                return multipart;
+            }else if(part.isMimeType("image/jpeg")){
+                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                Multipart mp = (Multipart) part.getContent();
+                mp.writeTo(buffer);
+                byte[] imageBytes = buffer.toByteArray();
+                log.debug("[*] Content type: " + part.getContentType());
                 return imageBytes;
             }
 
