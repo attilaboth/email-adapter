@@ -11,6 +11,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.Message;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -27,9 +30,9 @@ public class EmailController {
 
 
     @GetMapping(value = "/checkMailbox/{folderLookup}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Message[] checkEmailsInMailbox(@RequestBody @PathVariable @Validated boolean folderLookup){
+    public @ResponseBody List<String> checkEmailsInMailbox(@RequestBody @PathVariable @Validated boolean folderLookup){
         log.debug("[*] checkEmailsInMailbox() has been called...");
-        Message[] messages = emailHandler.checkCheckEmails(folderLookup);
+        List<String> messages = emailHandler.checkCheckEmails(folderLookup);
         log.debug("[*] List of messages contains: " + messages.toString());
         return messages;
     }

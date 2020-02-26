@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +22,9 @@ public class CheckEmail {
 
     private EmailServerConfigurer serverConfigurer;
     private Store store;
-    private  Message[] messages;
+    private Message[] messages;
+    private List<String> messagesContent  = new ArrayList<>();
+    private List<String> messagesAsString = new ArrayList<>();
     private String password = "";
     private String username = "";
     private String host = "";
@@ -34,7 +38,7 @@ public class CheckEmail {
 
 
 
-    public Message[] checkAllMailsInMailbox(boolean subfolderLookup){
+    public List<String> checkAllMailsInMailbox(boolean subfolderLookup){
 
         try{
 
@@ -48,13 +52,13 @@ public class CheckEmail {
                 emailFolder.open(Folder.READ_ONLY);
                 messages = emailFolder.getMessages();
                 log.debug("[*] Total messages in subfolder " + emailSubFolder + ":" + messages.length);
-                messageLookup(emailFolder);
+                messagesAsString = messageLookup(emailFolder);
             }else{
                 Folder emailFolder = store.getFolder(emailRootFolder);
                 emailFolder.open(Folder.READ_ONLY);
                 messages = emailFolder.getMessages();
                 log.debug("[*] Total messages in folder: " + messages.length);
-                messageLookup(emailFolder);
+                messagesAsString = messageLookup(emailFolder);
             }
 
 
@@ -90,18 +94,26 @@ public class CheckEmail {
 
 
         if (messages.length != 0){
-            return messages;
+            return messagesAsString;
         }else {
             log.debug("[*] No messages were found at specified root folder / subfolder");
-            return messages;
+            return messagesAsString;
         }
 
     }
 
-    private void messageLookup(Folder emailFolder) throws MessagingException, IOException {
+    private List<String> messageLookup(Folder emailFolder) throws MessagingException, IOException {
         for (int i=0; i<messages.length; i++){
 
             Message message = messages[i];
+
+            messagesContent.add("Email Number: " + (i+1) + ":");
+            messagesContent.add("Subject: " + message.getSubject());
+            messagesContent.add("From: " + message.getFrom().toString());
+            messagesContent.add("Recipients: " + message.getAllRecipients().toString());
+            messagesContent.add("Body: " + message.getContent().toString());
+            messagesContent.add("Send Date: " + message.getSentDate().toString());
+
             log.debug("Email Number " + (i+1) + ":");
             log.debug("Subject: " + message.getSubject());
             log.debug("From: " + message.getFrom().toString());
@@ -111,6 +123,7 @@ public class CheckEmail {
         }
 
         emailFolder.close();
+        return messagesContent;
     }
 
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -31,9 +32,9 @@ public class EmailHandler {
         this.emailRepository = emailRepository;
     }
 
-    public Message[] checkCheckEmails(boolean folderLookup){
+    public List<String> checkCheckEmails(boolean folderLookup){
         log.debug("[*] checkCheckEmails() method has been called with \"folderLookup\" parameter set to: " + folderLookup);
-        Message[] messages = checkEmail.checkAllMailsInMailbox(folderLookup);
+        List<String> messages = checkEmail.checkAllMailsInMailbox(folderLookup);
         return messages;
     }
 
